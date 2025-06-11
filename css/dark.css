@@ -1,33 +1,38 @@
-/** Base colors */
---clr-dark-a0: #000000;
---clr-light-a0: #ffffff;
+:root {
+  /* Dark mode */
+  --theme: dark;
+  --theme-name: "Dark Mode";
+    /** Base colors */
+    --theme-color: #000000;
+    --theme-text-color: #ffffff;
+    /** Theme primary colors */
+    --theme-background-color: #1f1d1c;
+    --theme-accent-color: #ff9900;
+    --theme-secondary-color: #343231;
+    --theme-tertiary-color: #4a4847;
+    --theme-quaternary-color: #615f5f;
+    --theme-quinary-color: #797877;
+    /** Theme surface colors */
+    --theme-surface-color: #1f1d1c;
+    --theme-surface-text-color: #ffffff;
+    --theme-surface-accent-color: #343231;
+    --theme-surface-secondary-color: #4a4847;
+    --theme-surface-tertiary-color: #615f5f;
+    --theme-surface-quaternary-color: #797877;
+    --theme-surface-quinary-color: #939191;
+    /** Theme tonal surface colors */
+    --theme-surface-tonal-color: #33281e;
+    --theme-surface-tonal-text-color: #ffffff;
+    --theme-surface-tonal-accent-color: #473c33;
+    --theme-surface-tonal-secondary-color: #5c5249;
+    --theme-surface-tonal-tertiary-color: #716860;
+    --theme-surface-tonal-quaternary-color: #888079;
+    --theme-surface-tonal-quinary-color: #9e9892;
+    --theme-surface-tonal-quinary-text-color: #ffffff;
+    --theme-surface-tonal-quinary-accent-color: #473c33;
+    --theme-surface-tonal-quinary-secondary-color: #5c5249;
+    --theme-surface-tonal-quinary-tertiary-color: #716860;
+    --theme-surface-tonal-quinary-quaternary-color: #888079;
+    --theme-surface-tonal-quinary-quinary-color: #9e9892;
 
-/** Theme primary colors */
---clr-primary-a0: #ff9900;
---clr-primary-a10: #ffa433;
---clr-primary-a20: #ffb050;
---clr-primary-a30: #ffbb6a;
---clr-primary-a40: #ffc683;
---clr-primary-a50: #ffd19c;
-
-/** Theme surface colors */
---clr-surface-a0: #1f1d1c;
---clr-surface-a10: #343231;
---clr-surface-a20: #4a4847;
---clr-surface-a30: #615f5f;
---clr-surface-a40: #797877;
---clr-surface-a50: #939191;
-
-/** Theme tonal surface colors */
---clr-surface-tonal-a0: #33281e;
---clr-surface-tonal-a10: #473c33;
---clr-surface-tonal-a20: #5c5249;
---clr-surface-tonal-a30: #716860;
---clr-surface-tonal-a40: #888079;
---clr-surface-tonal-a50: #9e9892;
-
-/** Examples */
-.bg-primary {
- color: var(--clr-primary-a50);
- background-color: var(--clr-surface-a0);
 }

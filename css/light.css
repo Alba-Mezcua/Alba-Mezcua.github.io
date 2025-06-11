@@ -1,33 +1,36 @@
-/** Base colors */
---clr-dark-a0: #000000;
---clr-light-a0: #ffffff;
-
-/** Theme primary colors */
---clr-primary-a0: #ff9900;
---clr-primary-a10: #f29623;
---clr-primary-a20: #e59435;
---clr-primary-a30: #d89142;
---clr-primary-a40: #ca8f4e;
---clr-primary-a50: #bd8c59;
-
-/** Theme surface colors */
---clr-surface-a0: #ffffff;
---clr-surface-a10: #f0f0f0;
---clr-surface-a20: #e1e1e1;
---clr-surface-a30: #d3d3d3;
---clr-surface-a40: #c5c5c5;
---clr-surface-a50: #b6b6b6;
-
-/** Theme tonal surface colors */
---clr-surface-tonal-a0: #fff5e8;
---clr-surface-tonal-a10: #f0e7dc;
---clr-surface-tonal-a20: #e1dad0;
---clr-surface-tonal-a30: #d3ccc4;
---clr-surface-tonal-a40: #c5bfb8;
---clr-surface-tonal-a50: #b7b2ad;
-
-/** Examples */
-.bg-primary {
- color: var(--clr-primary-a50);
- background-color: var(--clr-surface-a0);
+:root {
+    /* Light Theme */
+    --theme-name: "Light Theme";
+    /** Base colors */
+    --theme-color: #ffffff;
+    --theme-text-color: #000000;
+    /** Theme primary colors */
+    --theme-background-color: #f0f0f0;
+    --theme-accent-color: #ff9900;
+    --theme-secondary-color: #e1e1e1;
+    --theme-tertiary-color: #d3d3d3;
+    --theme-quaternary-color: #c5c5c5;
+    --theme-quinary-color: #b6b6b6;
+    /** Theme surface colors */
+    --theme-surface-color: #ffffff;
+    --theme-surface-text-color: #000000;
+    --theme-surface-accent-color: #f0f0f0;
+    --theme-surface-secondary-color: #e1e1e1;
+    --theme-surface-tertiary-color: #d3d3d3;
+    --theme-surface-quaternary-color: #c5c5c5;
+    --theme-surface-quinary-color: #b6b6b6;
+    /** Theme tonal surface colors */
+    --theme-surface-tonal-color: #fff5e8;
+    --theme-surface-tonal-text-color: #000000;
+    --theme-surface-tonal-accent-color: #f0e7dc;
+    --theme-surface-tonal-secondary-color: #e1dad0;
+    --theme-surface-tonal-tertiary-color: #d3ccc4;
+    --theme-surface-tonal-quaternary-color: #c5bfb8;
+    --theme-surface-tonal-quinary-color: #b7b2ad;
+    --theme-surface-tonal-quinary-text-color: #000000;
+    --theme-surface-tonal-quinary-accent-color: #f0e7dc;
+    --theme-surface-tonal-quinary-secondary-color: #e1dad0;
+    --theme-surface-tonal-quinary-tertiary-color: #d3ccc4;
+    --theme-surface-tonal-quinary-quaternary-color: #c5bfb8;
+    --theme-surface-tonal-quinary-quinary-color: #b7b2ad;
 }
