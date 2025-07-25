@@ -1,15 +1,21 @@
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+#C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy RemoteSigned -noexit "programa\tukimuchi.ps1"
+Write-Host 
+#Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 $key = 'HKLM:\SOFTWARE\ImageMagick\Current\'
 $installpath = Get-ItemPropertyValue $key 'BinPath'
-$inputfolder = "..\entrada"
-$outputfolder = "..\salida"
-
 $inputimages = Get-ChildItem -Path $inputfolder -File -Filter *.heic
 
-foreach ($inputimage in $inputimages) {
-    Write-Host "Processing file: $($inputimage.FullName)" -NoNewWindow
-    Start-Process -FilePath "$installpath\magick.exe" -ArgumentList "magick","$outputfoldet$inputimage.name" -Wait -RedirectStandardError ".\logs\$inputimage.name.log"
+function CambioFormato ($entrada) {
+    $salida = $entrada | ForEach-Object basename
+    $entrada = ".\entrada\$entrada"
+    $salida = ".\salida\$salida.jpg"
+    Write-Host $entrada
+    Write-Host $salida
+
+    Start-Process -FilePath "$installpath\magick.exe" -ArgumentList "$entrada", "$salida" -Wait -NoNewWindow
 }
 
-# necesita magick y librerías libheif 
-#libjpeg-turbo 3.1.0
+foreach ($inputimage in $inputimages) {
+    Write-Host "Processing file: $($inputimage.name)" #>> ".\programa\logs\$($inputimage.name).log"
+    CambioFormato($inputimage)
+}
