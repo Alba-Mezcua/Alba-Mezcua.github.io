@@ -5,40 +5,47 @@
 # TODO: Investigar comprobar la integridad de todo lo necesario para que funcione y descargar lo que esté corrupto
 # TODO: Investigar comprobar última versión y descargar
 # TODO: Try-Catch para los requisitos de arquitectura, reparar carpetas y preparar imagemagick 
-function Get-Arquitectura {
+function Get-VersionImageMagick {
     #TODO: Falta comprobar si es ARM64 o WIN64 y cómo decidir entre Q8, Q16 y Q16-HDRI (son las opciones del ImageMagick)
     if ((Get-WmiObject win32_operatingsystem | Select-Object osarchitecture).osarchitecture -like "64*") {
         #64 bit logic here
-        return "64"
+        $arquitectura = "64"
     }
     else {
         #32 bit logic here
-        return "32"
+        $arquitectura = "32"
     }
-}
 
-function Set-Carpetas {
+    return "ImageMagick-7.1.2-0-portable-Q16-HDRI-x$arquitectura"
+}
+function Set-Preparar {
+    # Carpetas
     if ( !(Get-ChildItem -Filter "entrada" -Directory)) {
-        Write-Host "Creando carpeta entrada"
-        New-Item -Path ".\" -Name "entrada" -ItemType Directory
+        New-Carpeta ("entrada")
     }
     if ( !(Get-ChildItem -Filter "salida" -Directory)) {
-        Write-Host "Creando carpeta salida"
-        New-Item -Path ".\" -Name "salida" -ItemType Directory
+        New-Carpeta ("salida")
     }
-}
-
-function Set-ImageMagick ($versionSO) {
+    # ImageMagick
     if (!(Get-ChildItem -Filter ".\programa\$versionMagick" -Directory)) {
         # Si no existe el directorio
         if (!(Get-ChildItem -Filter ".\programa\$versionMagick" -File)) {
             # Si no existen ni el directorio ni el fichero, descargamos
-            # TODO: Buscar repositorio alternativo por si está caído
-            Invoke-WebRequest -Uri "https://imagemagick.org/archive/binaries/$versionMagick.zip" -OutFile ".\programa\$versionMagick.zip"
-            # Descomprimimos
-            Expand-Archive ".\programa\$versionMagick.zip" -DestinationPath ".\programa"
+            New-ImageMagick($versionMagick)
         }
     }
+}
+function New-Carpeta ($carpeta) {
+    if ( !(Get-ChildItem -Filter "$carpeta" -Directory)) {
+        Write-Host "Creando carpeta $carpeta"
+        New-Item -Path ".\" -Name "$carpeta" -ItemType Directory
+    }
+}
+
+function New-ImageMagick ($versionMagick) {
+    Invoke-WebRequest -Uri "https://imagemagick.org/archive/binaries/$versionMagick.zip" -OutFile ".\programa\$versionMagick.zip"
+    # Descomprimimos
+    Expand-Archive ".\programa\$versionMagick.zip" -DestinationPath ".\programa"
     # Ejemplos nombre recurso web:
     #https://imagemagick.org/archive/binaries/ImageMagick-7.1.2-0-portable-Q16-x64.zip
     #https://imagemagick.org/archive/binaries/ImageMagick-7.1.2-0-portable-Q16-arm64.zip
@@ -57,13 +64,8 @@ function Start-CambioFormato ($entrada) {
 Write-Host "Script cargado con exito"
 
 # Pasos iniciales #
-
-$versionSO = Get-Arquitectura
-Write-Host "Arquitectura: $versionSO"
-$versionMagick = "ImageMagick-7.1.2-0-portable-Q16-HDRI-x$versionSO"
-Set-ImageMagick($versionMagick)
-
-Set-Carpetas
+$versionMagick = Get-VersionImageMagick
+Set-Preparar
 Write-Host "Requisitos listos"
 
 # Inicializamos variables
