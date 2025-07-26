@@ -1,7 +1,7 @@
 ﻿# Conversor heic a jpg
 # Permitir
-!Encargos/20250723 - convertir HEIC a JPG/HEICaJPG*
+!Encargos/HEICaJPG/HEICaJPG*
 # Omitir
-Encargos/20250723 - convertir HEIC a JPG/entrada/*
-Encargos/20250723 - convertir HEIC a JPG/salida/*
-Encargos/20250723 - convertir HEIC a JPG/programa/ImageMagick*
+Encargos/HEICaJPG/entrada/*
+Encargos/HEICaJPG/salida/*
+Encargos/HEICaJPG/programa/ImageMagick*
