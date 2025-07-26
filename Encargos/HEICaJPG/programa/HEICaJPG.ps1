@@ -53,15 +53,46 @@ function New-ImageMagick ($versionMagick) {
     #https://imagemagick.org/archive/binaries/ImageMagick-7.1.2-0-portable-Q16-HDRI-x64.zip
 }
 
-function Start-CambioFormato ($entrada) {
-    $salida = $entrada | ForEach-Object basename
-    $entrada = ".\entrada\$entrada"
-    $salida = ".\salida\$salida.jpg"
-    Start-Process -FilePath ".\programa\$versionMagick\magick.exe" -ArgumentList "$entrada", "$salida" -Wait -NoNewWindow
+function Start-CambioFormato ($imagen) {
+    # TODO: Limpiar una vez funcione todo el lío de rutas y extensiones
+    $imagen = $imagen | ForEach-Object basename
+    #Copiamos permisos antes de empezar a tocar el fichero original
+    $permisos = Get-Acl -Path ".\entrada\$imagen.heic"
+    #Hacemos rutas relativas
+
+    if ($imagen -like "* *") {
+        #Si el nombre contiene espacios
+        #Guardamos nombre original
+        $imagenEspacios = $imagen
+        #Quitamos espacios
+        $imagen = $imagenEspacios.replace(' ', '_')
+        #Cambiamos nombre fichero de entrada para poder tratarlo con ImageMagick
+        Move-Item -Path ".\entrada\$imagenEspacios.heic" -Destination ".\entrada\$imagen.heic"
+    }
+    Write-Host "Entrada: .\entrada\$imagen.heic", " | Salida: .\salida\$imagen.heic"
+    Start-Process -FilePath ".\programa\$versionMagick\magick.exe" -ArgumentList ".\entrada\$imagen.heic", ".\salida\$imagen.jpg" -Wait -NoNewWindow
+    
+    #Copiamos permisos originales
+    #Echo de menos a chmod
+    Write-Host "Esta mierda es: ",$permisos.GetType(),$permisos
+    Set-Acl -Path ".\salida\$imagen.jpg" -AclObject $permisos
+    
+    if (!($imagenEspacios -like "")) {
+        #Si el nombre contiene espacios
+        Write-Host "Salida con espacios: ", ".\salida\$imagenEspacios.jpg"
+        #Cambiamos nombre de fichero de salida
+        Move-Item -Path ".\salida\$imagen.jpg" -Destination ".\salida\$imagenEspacios.jpg"
+        #Revertimos cambio nombre fichero de entrada
+        Move-Item -Path ".\entrada\$imagen.heic" -Destination ".\entrada\$imagenEspacios.heic"
+        #Limpiamos la variable para la siguiente iteración
+        $imagenEspacios = ""
+    }
 }
+
 
 # Comenzamos
 Write-Host "Script cargado con exito"
+Write-Host 
 
 # Pasos iniciales #
 $versionMagick = Get-VersionImageMagick
@@ -75,6 +106,5 @@ $imagenes = Get-ChildItem -Path ".\entrada\" -File -Filter *.heic
 Write-Host "Detectados "$imagenes.Count" archivos .heic"
 foreach ($imagen in $imagenes) {
     Write-Host "Procesando imagen: $($imagen.name)"
-    Write-Host "Ejecutando .\programa\$versionMagick\magick.exe" #DEBUG
     Start-CambioFormato($imagen)
 }
