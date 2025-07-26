@@ -33,6 +33,7 @@ function Set-ImageMagick ($versionSO) {
         # Si no existe el directorio
         if (!(Get-ChildItem -Filter ".\programa\$versionMagick" -File)) {
             # Si no existen ni el directorio ni el fichero, descargamos
+            # TODO: Buscar repositorio alternativo por si está caído
             Invoke-WebRequest -Uri "https://imagemagick.org/archive/binaries/$versionMagick.zip" -OutFile ".\programa\$versionMagick.zip"
             # Descomprimimos
             Expand-Archive ".\programa\$versionMagick.zip" -DestinationPath ".\programa"
