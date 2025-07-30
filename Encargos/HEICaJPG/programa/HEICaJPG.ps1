@@ -18,8 +18,8 @@ function Get-VersionImageMagick {
 
     return "ImageMagick-7.1.2-0-portable-Q16-HDRI-x$arquitectura"
 }
-function Set-Preparar {
-    # Carpetas
+function Set-Requisitos {
+    # Creamos las carpetas entrada y salida si no existen
     if ( !(Get-ChildItem -Filter "entrada" -Directory)) {
         New-Carpeta ("entrada")
     }
@@ -37,12 +37,13 @@ function Set-Preparar {
 }
 function New-Carpeta ($carpeta) {
     if ( !(Get-ChildItem -Filter "$carpeta" -Directory)) {
-        Write-Host "Creando carpeta $carpeta"
+        Write-Warning "Creando carpeta $carpeta"
         New-Item -Path ".\" -Name "$carpeta" -ItemType Directory
     }
 }
 
 function New-ImageMagick ($versionMagick) {
+    # Descargamos ImageMagick portable versión 32/64
     Invoke-WebRequest -Uri "https://imagemagick.org/archive/binaries/$versionMagick.zip" -OutFile ".\programa\$versionMagick.zip"
     # Descomprimimos
     Expand-Archive ".\programa\$versionMagick.zip" -DestinationPath ".\programa"
@@ -55,10 +56,8 @@ function New-ImageMagick ($versionMagick) {
 
 function Start-CambioFormato ($imagen) {
     # TODO: Limpiar una vez funcione todo el lío de rutas y extensiones
+    #Quitamos extensión del nombre
     $imagen = $imagen | ForEach-Object basename
-    #Copiamos permisos antes de empezar a tocar el fichero original
-    $permisos = Get-Acl -Path ".\entrada\$imagen.heic"
-    #Hacemos rutas relativas
 
     if ($imagen -like "* *") {
         #Si el nombre contiene espacios
@@ -67,6 +66,7 @@ function Start-CambioFormato ($imagen) {
         #Quitamos espacios
         $imagen = $imagenEspacios.replace(' ', '_')
         #Cambiamos nombre fichero de entrada para poder tratarlo con ImageMagick
+        Write-Warning  "Los nombres con espacios no están totalmente soportados. La salida del fichero será $imagen.jpg"
         Move-Item -Path ".\entrada\$imagenEspacios.heic" -Destination ".\entrada\$imagen.heic"
     }
     Write-Host "Entrada: .\entrada\$imagen.heic", " | Salida: .\salida\$imagen.heic"
@@ -74,29 +74,30 @@ function Start-CambioFormato ($imagen) {
     
     #Copiamos permisos originales
     #Echo de menos a chmod
-    Write-Host "Esta mierda es: ",$permisos.GetType(),$permisos
-    Set-Acl -Path ".\salida\$imagen.jpg" -AclObject $permisos
+    #TODO: No funciona, probar a eliminar todos los permisos antes de copiarlos
+    $permisosOriginales = Get-Acl -Path ".\entrada\$imagen.heic"
+    Get-ChildItem -Path ".\salida\$imagen.jpg" | Set-Acl -AclObject $permisosOriginales
     
     if (!($imagenEspacios -like "")) {
         #Si el nombre contiene espacios
-        Write-Host "Salida con espacios: ", ".\salida\$imagenEspacios.jpg"
-        #Cambiamos nombre de fichero de salida
-        Move-Item -Path ".\salida\$imagen.jpg" -Destination ".\salida\$imagenEspacios.jpg"
+        Write-Host "Revirtiendo $imagenEspacios"
         #Revertimos cambio nombre fichero de entrada
         Move-Item -Path ".\entrada\$imagen.heic" -Destination ".\entrada\$imagenEspacios.heic"
+        #Cambiamos nombre de fichero de salida
+        Move-Item -Path ".\salida\$imagen.jpg" -Destination ".\salida\$imagenEspacios.jpg"
         #Limpiamos la variable para la siguiente iteración
         $imagenEspacios = ""
     }
 }
 
-
 # Comenzamos
 Write-Host "Script cargado con exito"
-Write-Host 
-
+$usuario = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+Write-Host "Usuario: ",$usuario
 # Pasos iniciales #
+# TODO: Separar en futuras versiones
 $versionMagick = Get-VersionImageMagick
-Set-Preparar
+Set-Requisitos
 Write-Host "Requisitos listos"
 
 # Inicializamos variables
