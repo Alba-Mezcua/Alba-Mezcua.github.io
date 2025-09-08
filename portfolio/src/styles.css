@@ -1,3 +1,4 @@
+/* You can add global styles to this file, and also import other style files */
 :root {
     /** Base colors */
     --clr-dark-a0: #000000;
@@ -26,4 +27,19 @@
     --clr-surface-tonal-a30: #716860;
     --clr-surface-tonal-a40: #888079;
     --clr-surface-tonal-a50: #9e9892;
+}
+
+* {
+    background-color: var(--clr-surface-a0);
+    color: var(--clr-light-a0);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    background-color: var(--clr-primary-a0);
+    min-height: 150px;
+    color:var(--clr-surface-tonal-a10);
+    text-align: center;
 }

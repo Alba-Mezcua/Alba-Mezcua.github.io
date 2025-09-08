@@ -1,7 +1,0 @@
-﻿# Conversor heic a jpg
-# Permitir
-!Encargos/HEICaJPG/HEICaJPG*
-# Omitir
-Encargos/HEICaJPG/entrada/*
-Encargos/HEICaJPG/salida/*
-Encargos/HEICaJPG/programa/ImageMagick*
