@@ -20,12 +20,8 @@ function Get-VersionImageMagick {
 }
 function Set-Requisitos {
     # Creamos las carpetas entrada y salida si no existen
-    if ( !(Get-ChildItem -Filter "entrada" -Directory)) {
-        New-Carpeta ("entrada")
-    }
-    if ( !(Get-ChildItem -Filter "salida" -Directory)) {
-        New-Carpeta ("salida")
-    }
+    New-Carpeta ("entrada")
+    New-Carpeta ("salida")
     # ImageMagick
     if (!(Get-ChildItem -Filter ".\programa\$versionMagick" -Directory)) {
         # Si no existe el directorio
@@ -93,7 +89,7 @@ function Start-CambioFormato ($imagen) {
 # Comenzamos
 Write-Host "Script cargado con exito"
 $usuario = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-Write-Host "Usuario: ",$usuario
+Write-Host "Usuario: ", $usuario
 # Pasos iniciales #
 # TODO: Separar en futuras versiones
 $versionMagick = Get-VersionImageMagick
