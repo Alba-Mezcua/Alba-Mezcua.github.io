@@ -1,15 +1,26 @@
-<header>
-    <h1>Alba Mezcua Sánchez de la Rosa</h1>
+<header id="inicio">
+    <a href="https://alba-mezcua.github.io/" target="_self">Alba Mezcua Sánchez de la Rosa</a>
 </header>
-<main>
-    <app-datos-personales></app-datos-personales>
-    <app-linea-tiempo></app-linea-tiempo>
-</main>
-<footer>
+<nav class="border">
+    <a href="#datos-personales">
+        <p>Datos Personales</p>
+    </a>
+    <a href="#linea-Tiempo">
+        <p>Línea de tiempo</p>
+    </a>
     <div class="redes">
-        <p>Redes sociales:</p>
-        <a href="linkedin.com/in/alba-mezcua-s%C3%A1nchez-de-la-rosa-821b2b2a9">
-            <img src="/img/LI-In-Bug.png" alt="Enlace a linkedin">
+        <a href="https://www.linkedin.com/in/alba-mezcua-s%C3%A1nchez-de-la-rosa-821b2b2a9/" target="_blank">
+            <img src="/img/InBug-Black.png" alt="Enlace a mi perfil de linkedin">
         </a>
     </div>
+</nav>
+<main>
+    <app-datos-personales id="datos-personales"></app-datos-personales>
+    <app-linea-tiempo id="linea-tiempo"></app-linea-tiempo>
+</main>
+<a class="inicio" href="#inicio">
+    <img src="/img/up-arrow.png" alt="">
+</a>
+<footer>
+
 </footer>

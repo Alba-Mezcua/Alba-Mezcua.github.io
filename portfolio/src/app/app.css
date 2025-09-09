@@ -1,3 +1,58 @@
 img {
-    max-width:50px;
+    max-width: 30px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 150px 0;
+
+    a {
+        font-size: 6rem;
+        font-weight: bolder;
+        white-space: nowrap;
+    }
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    a {
+        padding: 15px 60px;
+        border-left: 1px solid;
+        height: auto;
+    }
+
+    .redes {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        padding: 15px 5px;
+    }
+}
+
+.inicio {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    img {
+        max-width: 50px;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+@media screen and (max-width:1336px) {
+    header {
+        a {
+            font-size:xx-large
+        }
+    }
 }
