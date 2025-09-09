@@ -21,6 +21,13 @@ export class LineaTiempo {
       inicio: 2022,
       fin: 2023,
       nombre: 'Curso de especialización en ciberseguridad en entornos de las tecnologías de la información',
+      localizacion: 'NTT Data Europe & Latam (Anteriormente Everis Infrastructures Operations, S.L.U.)',
+      descripcion: ''
+    },
+    {
+      inicio: 2019,
+      fin: 2022,
+      nombre: 'Trabajo como técnico de administración de sistemas',
       localizacion: 'IES Juan Bosco de Alcázar de San Juan',
       descripcion: ''
     },

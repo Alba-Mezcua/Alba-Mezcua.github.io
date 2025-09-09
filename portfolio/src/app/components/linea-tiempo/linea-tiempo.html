@@ -4,7 +4,7 @@
         @for (actividad of actividades; track $index) {
         @if ($index%2==0) {
         <div class="container left">
-            <div class="content">
+            <div class="content border">
                 <div class="fechas">
                     <p>{{actividad.inicio}}</p>
                     @if (actividad.fin) {
@@ -17,7 +17,7 @@
         </div>
         }@else {
         <div class="container right">
-            <div class="content">
+            <div class="content border">
                 <div class="fechas">
                     <p>{{actividad.inicio}}</p>
                     @if (actividad.fin) {
