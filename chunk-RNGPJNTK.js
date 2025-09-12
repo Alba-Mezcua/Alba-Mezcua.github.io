@@ -1,0 +1,1 @@
+import{Oa as a,Pa as s,Sa as p,ta as o}from"./chunk-A6F4YKRZ.js";var n=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-proyectos-page"]],decls:2,vars:0,template:function(e,r){e&1&&(a(0,"p"),p(1,"proyectos-page works!"),s())},encapsulation:2})};export{n as ProyectosPage};
